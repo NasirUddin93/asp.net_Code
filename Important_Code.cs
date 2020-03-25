@@ -63,6 +63,39 @@
             return Content(serial);
         }
 /////////////////////////////////////////////////////////////////////////////////////////////
+@Html.EditorForModel()  // Add to cshtml file to autogenerate the input form
+    public class EmployeeModel
+    {
+        [Display(Name ="Employee ID")]
+        [Range(100000,999999,ErrorMessage ="You need to enter valid EmployeeId")]
+        public int EmployeeId { get; set; }
+        [Display(Name = "First Name")]
+        [Required( ErrorMessage = "You need to enter First Name")]
+
+        public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
+        [Required(ErrorMessage = "You need to enter Last Name")]
+
+        public string LastName { get; set; }
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email Address")]
+        [Required(ErrorMessage = "You need to enter Email address")]
+
+        public string EmailAddress { get; set; }
+        [Display(Name = "Confirm Email")]
+        [Compare("EmailAddress",ErrorMessage ="You must match email address and confirm email !")]
+        public string ConfirmEmail { get; set; }
+        [Display(Name = "Password")]
+        [Required(ErrorMessage ="You must have pass")]
+        [DataType(DataType.Password)]
+        [StringLength(100, MinimumLength =10,ErrorMessage ="You need to provide long password")]
+        public string Password { get; set; }
+        [Display(Name ="Confirm Password")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage ="Your password and confirm password must match.")]
+        public string ConfirmPassword { get; set; }
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
