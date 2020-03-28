@@ -96,6 +96,113 @@
         public string ConfirmPassword { get; set; }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////
+        //http://localhost:51727/home/index/10?name=nasi
+        public string Index(string id)
+        {
+            return "This is good for me "+id+Request.QueryString["name"];
+        }
+/////Another way to do samething
+        public string Index(string id,string name)
+        {
+            return "This is good for me "+id+name;
+        }
+//////////////////////////////////////////ViewBag//////////////////////////////////////////////////
+    public ActionResult Index()     ///Controller file
+        {
+            ViewBag.Countries = new List<string>
+            {
+                "Bangladesh",
+                "India",
+                "Pakistan",
+                "US"
+            };
+            return View();           
+        }
+<ul>               /// View file
+    @foreach (string strCountries in ViewBag.Countries)
+    {
+        <li>@strCountries</li>
+    }
+
+</ul>
+////////////////////////////////////ViewData///////////////////////////////////
+    public ActionResult Index()
+        {
+            ViewData["Countries"] = new List<string>
+            {
+                "Bangladesh",
+                "India",
+                "Pakistan",
+                "US"
+            };
+            return View();           
+        }
+    }
+    <ul>
+    @foreach (string strCountries in (List<string>)ViewData["Countries"])
+    {
+        <li>@strCountries</li>
+    }
+
+</ul>
+///////////////////////////////////////////////////////////////////////////////
+    public class Employee          ///Model file
+    {
+        public int EmployeeId { get; set; }
+        public string Name { get; set; }
+        public string Gender { get; set; }
+        public string City { get; set; }
+    }
+    public ActionResult Details()  ///Controller file
+        {
+            Employee employee = new Employee()
+            {
+                EmployeeId = 101,
+                Name = "John",
+                Gender = "Male",
+                City = "London"
+            };
+
+            return View(employee);
+        }
+@model MVCDemo06.Models.Employee  ///view file
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employee</h4>
+    <table border="1">
+        <tr>
+            <td>Employee ID</td>
+            <td>@Model.EmployeeId</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>@Model.Gender</td>
+        </tr>
+        <tr>
+            <td>City</td>
+            <td>@Model.City</td>
+        </tr>
+    </table>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeId }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>
+////////////////////////////////////////////////////////////////////////////////
+ @Html.DisplayNameFor(model => model.ProductId)  ///Provide Variable 
+  @Html.DisplayFor(model => model.ProductId)   //Provides value
+ ///////////////////////////////////////////////////////////////////////////// 
 
 
 
